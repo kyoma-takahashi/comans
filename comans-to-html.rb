@@ -1,6 +1,13 @@
 #!/usr/bin/ruby
 # -*- coding: utf-8 -*-
 
+=begin
+
+This reads the comments and answers in a CSV from the standard input
+and writes the processed HTML to the standard output.
+
+=end
+
 require 'rexml/document'
 require 'date'
 

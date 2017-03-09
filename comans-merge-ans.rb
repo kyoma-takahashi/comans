@@ -1,9 +1,26 @@
 #!/usr/bin/ruby
 
+=begin
+
+This reads the comments and answers in a CSV from the standard input,
+merges the answers, and writes the processed CSV to the standard
+output. The answers are to be given in a CSV file. The answer file
+path and the date of the answers are to be given as the arguments. An
+answer file has two columns of the comment IDs and answer texts.
+
+=end
+
 require File.join(File.dirname($0), 'comans.rb')
 
+def abort_usage
+  abort 'Arguments: answered_date answers_file'
+end
+
 answer_date = ARGV.shift
-answer = Hash[*CSV.read(ARGV.shift, :headers => false).collect do |row|
+abort_usage() unless answer_date
+answer_file = ARGV.shift
+abort_usage() unless answer_file
+answer = Hash[*CSV.read(answer_file, :headers => false).collect do |row|
                 [row.shift.to_i, *row]
               end.flatten]
 
