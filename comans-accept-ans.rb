@@ -25,6 +25,10 @@ ca.each do |comment_id, cids, line|
     comment_ids_to_accept.delete(comment_id)
   end
 
+  if ACCEPTED == line[9]
+    line[9] = OUT_ACCEPTED
+  end
+
   line
 
 end

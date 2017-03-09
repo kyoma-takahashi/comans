@@ -50,7 +50,7 @@ td.warn {
     *1：番号がないものは丸括弧内に標題．
     *2：「継続」の逆引．
     *3：#{COMMENTER_CAPTION}．
-    *4：継続するコメントの番号，継続せず完了であれば「済」，未判断であれば「未」．
+    *4：継続するコメントの番号，継続せず完了であれば「#{OUT_ACCEPTED}」，未判断であれば「#{NOT_DECIDED_YET}」．
   </caption>
   <thead>
     <tr>
@@ -63,7 +63,7 @@ td.warn {
     </tr>
     <tr>
       <th>提出日</th>
-      <th>#{COMMENT_OBJECT_SHORT}番号 *1</th>
+      <th>#{COMMENT_OBJECT_ID} *1</th>
       <th>版</th>
       <th>日付</th>
       <th>コメント者 *3</th>
@@ -175,7 +175,7 @@ ca.each do |comment_id, cids, line|
       td_contd.add_attribute('class', [td_contd.attribute('class'), 'warn'].join(' '))
     end
   elsif ACCEPTED == continued
-    td_contd.text = continued
+    td_contd.text = OUT_ACCEPTED
   elsif cids
     td_contd.text = cids.join(', ')
   end
