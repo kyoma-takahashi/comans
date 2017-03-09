@@ -171,7 +171,7 @@ ca.each do |comment_id, cids, line|
   td_contd = tr.add_element('td')
   if ! continued or continued.empty?
     unless not_answered_yet or no_answer_needed
-      td_contd.text = NOT_ANSWERED_YET
+      td_contd.text = NOT_DECIDED_YET
       td_contd.add_attribute('class', [td_contd.attribute('class'), 'warn'].join(' '))
     end
   elsif ACCEPTED == continued
