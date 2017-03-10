@@ -13,7 +13,7 @@ class CommentAnswer
     @dest = if destination
               CSV.new(destination, :headers => false)
             else
-              nil
+              File.open(IO::NULL, 'w')
             end
 
     if options[:relations]
@@ -38,14 +38,13 @@ class CommentAnswer
                      line[0].to_i
                    end
 
-      if comment_id and @last_comment_id == comment_id
-        warn "comment id duplicated: #{@last_comment_id}"
-      end
-      if comment_id and @last_comment_id > comment_id
-        warn "comment id decrease: #{@last_comment_id}"
-      end
-
       if comment_id
+        if @last_comment_id == comment_id
+          warn "comment id duplicated: #{@last_comment_id}"
+        end
+        if @last_comment_id > comment_id
+          warn "comment id decrease: #{@last_comment_id}"
+        end
         @last_comment_id = comment_id
       end
 
@@ -53,8 +52,8 @@ class CommentAnswer
       unless ! continued or continued.empty? or ACCEPTED == continued
         if continued =~ /^\d+(,\s*\d+)*$/
           if @relations
-            cids = continued.split(/,\s*/).collect{|i| i.to_i}
-            cids.each do |i|
+            continued_comment_ids = continued.split(/,\s*/).collect{|i| i.to_i}
+            continued_comment_ids.each do |i|
               @relations[i] ||= []
               @relations[i] << comment_id
             end
@@ -64,20 +63,14 @@ class CommentAnswer
         end
       end
 
-      line_out = yield comment_id, cids, line
-
-      if @dest
-        @dest << line_out
-      end
+      @dest << yield(comment_id, continued_comment_ids, line)
 
     end
 
   end
 
   def close
-    if @dest
-      @dest.close
-    end
+    @dest.close
     @source.close
   end
 

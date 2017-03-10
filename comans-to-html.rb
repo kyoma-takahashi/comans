@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-# -*- coding: utf-8 -*-
 
 =begin
 
@@ -53,32 +52,8 @@ td.warn {
 </head>
 <body>
 <table>
-  <caption>
-    *1：番号がないものは丸括弧内に標題．
-    *2：「継続」の逆引．
-    *3：#{COMMENTER_CAPTION}．
-    *4：継続するコメントの番号，継続せず完了であれば「#{OUT_ACCEPTED}」，未判断であれば「#{NOT_DECIDED_YET}」．
-  </caption>
-  <thead>
-    <tr>
-      <th rowspan="2">番号</th>
-      <th colspan="3">コメント対象 #{COMMENT_OBJECT}</th>
-      <th rowspan="2">従前 *2</th>
-      <th colspan="3">#{COMMENTER} コメント</th>
-      <th colspan="2">#{ANSWERER} 回答</th>
-      <th rowspan="2">継続 *4</th>
-    </tr>
-    <tr>
-      <th>提出日</th>
-      <th>#{COMMENT_OBJECT_ID} *1</th>
-      <th>版</th>
-      <th>日付</th>
-      <th>コメント者 *3</th>
-      <th>コメント</th>
-      <th>日付</th>
-      <th>回答</th>
-    </tr>
-  </thead>
+  <caption>#{TABLE_CAPTION}</caption>
+  <thead>#{TABLE_THEAD}</thead>
   <!-- <tfoot>
     <tr>
       <td colspan="11">
