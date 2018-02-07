@@ -45,7 +45,6 @@ class CommentAnswer
         if @last_comment_id > comment_id
           warn "comment id decrease: #{@last_comment_id}"
         end
-        @last_comment_id = comment_id
       end
 
       continued = line[9]
@@ -64,6 +63,10 @@ class CommentAnswer
       end
 
       @dest << yield(comment_id, continued_comment_ids, line)
+
+      if comment_id
+        @last_comment_id = comment_id
+      end
 
     end
 
