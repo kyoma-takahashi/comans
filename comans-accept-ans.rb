@@ -29,10 +29,12 @@ ca.each do |comment_id, cids, line|
   if comment_ids_to_accept.include?(comment_id)
     if ACCEPTED == line[9]
       warn "Already accepted: [#{comment_id}]"
-    elsif line[7] and ! line[7].empty? and
-        line[8] and ! line[8].empty? and
+    elsif line[8] and ! line[8].empty? and
         (! line[9] or line[9].empty?)
       line[9] = ACCEPTED
+      if ! line[7] or line[7].empty?
+        warn "Empty answer date. Accepted: [#{comment_id}]"
+      end
     else
       warn "Empty answer or rejected already. Not accepted: [#{comment_id}]"
     end
